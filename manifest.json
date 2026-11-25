@@ -1,0 +1,9 @@
+{
+  "name": "RustDrop P2P",
+  "short_name": "RustDrop",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b0f17",
+  "theme_color": "#0b0f17",
+  "description": "Serverless Rust + WebRTC P2P file beam and live clipboard"
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="theme-color" content="#0b0f17" />
+  <title>RustDrop P2P — Serverless Cross-Device Beam</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="title-group">
+        <span class="status-dot" id="status-dot"></span>
+        <h1>RUSTDROP <span class="tag">P2P</span></h1>
+      </div>
+      <div class="badges">
+        <span class="pill" id="engine-badge">Engine: Loading...</span>
+        <span class="pill" id="net-badge">Disconnected</span>
+      </div>
+    </header>
+
+    <!-- Connection Panel -->
+    <section class="card" id="connect-card">
+      <div class="mode-switch">
+        <button class="mode-btn active" data-mode="pin">4-Digit Room PIN (Auto)</button>
+        <button class="mode-btn" data-mode="offline">Zero-Internet Manual SDP</button>
+      </div>
+
+      <!-- Mode 1: Free Public WSS MQTT Signaling -->
+      <div id="panel-pin" class="mode-panel">
+        <p class="hint">
+          Enter the same 4-digit PIN on both devices (Android, Fedora, Windows). Signaling uses a free public WSS relay, then switches to <strong>100% direct encrypted P2P</strong>.
+        </p>
+        <div class="pin-row">
+          <input type="text" id="room-pin" maxlength="6" inputmode="numeric" placeholder="e.g. 4829" />
+          <button id="btn-gen-pin" class="btn btn-secondary" title="Generate random PIN">Random</button>
+          <button id="btn-connect-pin" class="btn btn-primary">Connect</button>
+        </div>
+      </div>
+
+      <!-- Mode 2: True Zero-Server Offline SDP Exchange -->
+      <div id="panel-offline" class="mode-panel hidden">
+        <p class="hint">
+          Works over mobile hotspot with <strong>zero internet quota</strong>. Device A creates an Offer, Device B pastes it to generate an Answer, and Device A pastes the Answer back.
+        </p>
+        <div class="offline-actions">
+          <button id="btn-create-offer" class="btn btn-primary">1. Create Offer (Sender)</button>
+          <button id="btn-accept-offer" class="btn btn-secondary">2. Paste Offer & Create Answer</button>
+          <button id="btn-accept-answer" class="btn btn-secondary">3. Paste Answer (Finish)</button>
+        </div>
+        <textarea id="sdp-box" rows="4" placeholder="Handshake payload appears here..."></textarea>
+        <button id="btn-copy-sdp" class="btn btn-ghost btn-sm">Copy Payload</button>
+      </div>
+    </section>
+
+    <!-- Active P2P Workspace -->
+    <section class="grid-2">
+      <!-- File Beam -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Direct File Beam</h2>
+          <span class="meta-text" id="speed-meter">0.00 MB/s</span>
+        </div>
+
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="file-input" multiple hidden />
+          <div class="drop-icon">⇅</div>
+          <div class="drop-title">Tap to pick files or Drag & Drop</div>
+          <div class="drop-sub">No size limit • Direct LAN/WebRTC • CRC32 verified</div>
+        </label>
+
+        <div id="transfer-list" class="transfer-list"></div>
+      </div>
+
+      <!-- Live Shared Clipboard -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Live P2P Clipboard</h2>
+          <button id="btn-copy-clip" class="btn btn-ghost btn-sm">Copy Text</button>
+        </div>
+        <textarea id="shared-clipboard" class="clip-area" placeholder="Type or paste links, commands, or notes here—syncs instantaneously to the paired device..."></textarea>
+        <div class="clip-footer">
+          <span id="clip-status" class="meta-text">Waiting for peer connection...</span>
+          <button id="btn-paste-send" class="btn btn-secondary btn-sm">Paste & Sync</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

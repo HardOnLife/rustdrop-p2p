@@ -1,0 +1,16 @@
+{
+  "name": "rustdrop_core",
+  "type": "module",
+  "description": "High-speed Rust/WASM binary framing, CRC32 integrity, and SDP minifier for Serverless WebRTC P2P",
+  "version": "0.1.0",
+  "files": [
+    "rustdrop_core_bg.wasm",
+    "rustdrop_core.js",
+    "rustdrop_core.d.ts"
+  ],
+  "main": "rustdrop_core.js",
+  "types": "rustdrop_core.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

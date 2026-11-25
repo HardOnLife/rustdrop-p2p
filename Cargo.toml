@@ -1,0 +1,16 @@
+[package]
+name = "rustdrop_core"
+version = "0.1.0"
+edition = "2021"
+description = "High-speed Rust/WASM binary framing, CRC32 integrity, and SDP minifier for Serverless WebRTC P2P"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
