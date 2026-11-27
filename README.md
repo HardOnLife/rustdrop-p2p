@@ -16,7 +16,7 @@ wasm-pack build --target web
 ```
 This outputs `pkg/rustdrop_core.js` and `pkg/rustdrop_core_bg.wasm`.
 
-## Test Locally Across Laptop & Infinix Note 50 Pro
+## Test Locally Across Laptop & Mobile Phone
 1. Serve the folder on your local Wi-Fi/hotspot:
    ```bash
    python3 -m http.server 8080
